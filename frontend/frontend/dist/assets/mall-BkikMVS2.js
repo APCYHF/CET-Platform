@@ -1,0 +1,1 @@
+import{r}from"./request-Bo9muOPT.js";function o(){return r.get("/mall/products")}function s(t,e){return r.post("/mall/order",null,{params:{productId:t,payType:e}})}function n(){return r.get("/mall/orders")}export{n as a,s as c,o as g};
