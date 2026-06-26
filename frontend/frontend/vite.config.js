@@ -28,7 +28,19 @@ export default defineConfig({
       input: {
         main: resolve(__dirname, 'index.html'),
         admin: resolve(__dirname, 'admin.html')
+      },
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules/vant')) return 'vant';
+          if (id.includes('node_modules/element-plus')) return 'element';
+          if (id.includes('node_modules/echarts') || id.includes('node_modules/vue-echarts')) return 'charts';
+          if (id.includes('node_modules')) return 'vendor';
+        }
       }
-    }
+    },
+    chunkSizeWarningLimit: 500,
+    cssCodeSplit: true,
+    minify: 'esbuild',
+    sourcemap: false
   }
 });

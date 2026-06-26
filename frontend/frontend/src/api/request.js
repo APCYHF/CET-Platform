@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Toast } from 'vant';
+import { showToast } from 'vant';
 import { useUserStore } from '@/stores/user';
 
 const request = axios.create({
@@ -20,7 +20,7 @@ request.interceptors.response.use(
     const res = response.data;
     if (res.code !== 200) {
       if (res.code === 401) {
-        Toast.fail('登录已过期，请重新登录');
+        showToast({ message: '登录已过期，请重新登录', type: 'fail' });
         const userStore = useUserStore();
         userStore.logout();
         window.location.href = '/login';
@@ -30,7 +30,7 @@ request.interceptors.response.use(
     return res.data;
   },
   error => {
-    Toast.fail(error.response?.data?.msg || '网络错误');
+    showToast({ message: error.response?.data?.msg || '网络错误', type: 'fail' });
     return Promise.reject(error);
   }
 );
