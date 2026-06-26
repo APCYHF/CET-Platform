@@ -1,1 +1,0 @@
-import{r as t}from"./request-B85Ak5pm.js";function u(){return t.get("/word/today-plan")}function n(r,a){return t.post(`/word/status/${r}`,null,{params:{status:a}})}function e(){return t.get("/word/vocabulary/my")}function s(){return t.get("/word/stats")}export{e as a,u as b,s as g,n as u};
