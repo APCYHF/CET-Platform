@@ -1,0 +1,55 @@
+# 生产环境配置 - 使用环境变量（Railway兼容）
+spring:
+  config:
+    activate:
+      on-profile: prod
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+  datasource:
+    # Railway MySQL的MYSQL_URL是mysql://格式(非JDBC格式)，改用单独的环境变量拼接
+    # 支持有无下划线两种变量名(MYSQLHOST / MYSQL_HOST)
+    url: jdbc:mysql://${MYSQLHOST:${MYSQL_HOST:localhost}}:${MYSQLPORT:${MYSQL_PORT:3306}}/${MYSQLDATABASE:${MYSQL_DATABASE:cet_platform}}?useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true&characterEncoding=UTF-8
+    username: ${MYSQLUSER:${MYSQL_USER:root}}
+    password: ${MYSQLPASSWORD:${MYSQL_PASSWORD:1234}}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 30000
+      connection-timeout: 30000
+  redis:
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
+    password: ${REDIS_PASSWORD:}
+    database: ${REDIS_DATABASE:0}
+    timeout: 3000ms
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
+
+# JWT配置
+jwt:
+  secret: ${JWT_SECRET:cet-prep-platform-secret-key-2024-do-not-share}
+  expiration: ${JWT_EXPIRATION:86400000}
+  header: Authorization
+  prefix: Bearer
+
+# 文件上传路径
+upload:
+  path: ${UPLOAD_PATH:./uploads}
+
+# 关闭MyBatis Plus SQL日志
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      id-type: auto
+      logic-delete-field: deleted
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  mapper-locations: classpath:/mapper/**/*.xml
