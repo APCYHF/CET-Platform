@@ -19,8 +19,8 @@ request.interceptors.response.use(
   response => {
     const res = response.data;
     if (res.code !== 200) {
-      Toast.fail(res.msg || '请求失败');
       if (res.code === 401) {
+        Toast.fail('登录已过期，请重新登录');
         const userStore = useUserStore();
         userStore.logout();
         window.location.href = '/login';

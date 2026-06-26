@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * MyBatis Plus 配置
+ * MyBatis Plus 配置,支持自动分页查询
  */
 @Configuration
 public class MyBatisPlusConfig {
@@ -16,6 +16,7 @@ public class MyBatisPlusConfig {
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
         interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
+        //MyBatis 执行 SQL 时会被拦截，自动实现分页
         return interceptor;
     }
 }

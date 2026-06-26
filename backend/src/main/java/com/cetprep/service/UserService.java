@@ -37,13 +37,18 @@ public class UserService {
     private JwtTokenUtil jwtTokenUtil;
 
     public Map<String, Object> login(LoginDTO dto) {
+        // 先检查用户是否存在，避免 Spring Security 将 UsernameNotFoundException 包装为 BadCredentialsException
+        User user = userMapper.selectOne(new QueryWrapper<User>().eq("username", dto.getUsername()));
+        if (user == null) {
+            throw new BusinessException(400, "该用户未注册，请先注册");
+        }
+
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(dto.getUsername(), dto.getPassword())
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtTokenUtil.generateToken((org.springframework.security.core.userdetails.User) authentication.getPrincipal());
 
-        User user = userMapper.selectOne(new QueryWrapper<User>().eq("username", dto.getUsername()));
         user.setLastLoginTime(LocalDateTime.now());
         userMapper.updateById(user);
 

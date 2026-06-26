@@ -48,7 +48,7 @@
           <div class="back-word">{{ currentWord.word }}</div>
           <div class="back-meaning">{{ currentWord.meaning }}</div>
           <div v-if="currentWord.exampleSentence" class="back-example">
-            <div class="example-label">例句</div>
+            <div class="example-label"><strong>例句</strong></div>
             <div class="example-text">{{ currentWord.exampleSentence }}</div>
           </div>
           <div v-if="currentWord.root" class="back-root">
@@ -81,7 +81,7 @@
     <div v-else class="completion">
       <div class="completion-icon">🎉</div>
       <h3>今日任务完成！</h3>
-      <p>继续保持，坚持就是胜利</p>
+      <p>最难不过坚持！</p>
       <div class="completion-stats">
         <div class="cs-item">
           <div class="cs-val">{{ totalWords }}</div>
@@ -171,7 +171,7 @@ onMounted(async () => {
 /* Card */
 .card-scene { padding: 16px 20px; perspective: 1200px; }
 .word-card {
-  height: 260px; cursor: pointer;
+  height: 300px; cursor: pointer;
   transform-style: preserve-3d;
   transition: transform 0.55s cubic-bezier(0.4, 0.2, 0.2, 1);
   position: relative;
@@ -186,7 +186,7 @@ onMounted(async () => {
   padding: 28px 24px;
   box-shadow: 0 8px 32px rgba(79,110,247,0.15);
 }
-.card-front { background: linear-gradient(145deg, #4F6EF7 0%, #6B87FF 100%); }
+.card-front { background: linear-gradient(145deg, #2D88FF 0%, #0066FF 100%); }
 .card-back { background: #fff; transform: rotateY(180deg); }
 
 .word-type-badge {
@@ -206,8 +206,8 @@ onMounted(async () => {
 .back-word { font-size: 24px; font-weight: 700; color: #1A1D2E; margin-bottom: 12px; }
 .back-meaning { font-size: 18px; color: #4F6EF7; font-weight: 600; text-align: center; margin-bottom: 16px; }
 .back-example { background: #F4F6FB; border-radius: 10px; padding: 10px 14px; width: 100%; }
-.example-label { font-size: 11px; color: #9CA3AF; font-weight: 600; margin-bottom: 4px; }
-.example-text { font-size: 13px; color: #374151; line-height: 1.6; }
+.example-label strong{ font-size: 11px; color: #9CA3AF; font-weight: 600; margin-bottom: 4px; }
+.example-text { font-size: 17px !important; color: #333; line-height: 1.6; margin-top: 6px;}
 .back-root { font-size: 13px; color: #9CA3AF; margin-top: 10px; display: flex; align-items: center; gap: 6px; }
 .root-tag { background: #EEF1FE; color: #4F6EF7; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px; }
 
@@ -227,7 +227,7 @@ onMounted(async () => {
 
 .btn-forget { background: #FFF1F2; color: #F05656; }
 .btn-fuzzy { background: #FFFBEB; color: #D97706; }
-.btn-know { background: #F0FDF4; color: #06C073; }
+.btn-know { background: #E8F8E8; color: #009944; }
 
 /* Completion */
 .completion {

@@ -110,7 +110,10 @@ async function handleLogin() {
     userStore.setUserInfo(res.user)
     showToast({ message: '登录成功 👋', type: 'success' })
     router.push('/home')
-  } catch (e) {}
+  } catch (e) {
+    const msg = e?.message || '登录失败，请重试'
+    showToast({ message: msg, type: 'fail' })
+  }
   finally { loading.value = false }
 }
 </script>

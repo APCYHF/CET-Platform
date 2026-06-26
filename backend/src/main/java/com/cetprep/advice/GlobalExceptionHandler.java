@@ -23,17 +23,20 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(BadCredentialsException.class)
     public Result<Void> handleBadCredentialsException(BadCredentialsException e) {
+        log.warn("用户名或密码错误");
         return Result.error(401, "用户名或密码错误");
     }
 
     @ExceptionHandler(AccessDeniedException.class)
     public Result<Void> handleAccessDeniedException(AccessDeniedException e) {
+        log.warn("无权访问");
         return Result.error(403, "无权访问");
     }
 
     @ExceptionHandler(BindException.class)
     public Result<Void> handleBindException(BindException e) {
         String msg = e.getAllErrors().get(0).getDefaultMessage();
+        log.warn("参数错误: {}", msg);
         return Result.error(400, msg);
     }
 

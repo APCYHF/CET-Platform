@@ -7,12 +7,13 @@ import lombok.Data;
  */
 @Data
 public class Result<T> {
-    private Integer code;
-    private String msg;
-    private T data;
-    private Long timestamp;
+    private Integer code;//状态码
+    private String msg;//提示信息
+    private T data;//数据
+    private Long timestamp;//时间戳
 
     public Result() {
+        //每次创建 Result 对象时，自动记录当前时间
         this.timestamp = System.currentTimeMillis();
     }
 
